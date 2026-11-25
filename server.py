@@ -18,10 +18,10 @@ def inspect_setup():
     missing = []
     if not (MODEL / "test.py").exists():
         missing.append("مجلد ACGPN غير موجود أو لم يتم تنزيل الـ submodule.")
-    if not (MODEL / "checkpoints").exists():
-        missing.append("ملفات checkpoints غير موجودة (نزّلها من رابط المشروع الأصلي).")
-    if not (MODEL / "datasets" / "test").exists() and not (MODEL / "test").exists():
-        missing.append("بيانات Dataset_Test غير موجودة/لم توضع في بنية المشروع.")
+    if not (MODEL / "checkpoints" / "label2city").exists():
+        missing.append("مجلد checkpoints/label2city غير موجود. نزّل الأوزان وفكّها داخل ACGPN/checkpoints.")
+    if not (MODEL / "Data_preprocessing").exists():
+        missing.append("مجلد Data_preprocessing غير موجود. فكّ Dataset_Test داخل هذا المسار كما يتطلب ACGPN.")
     return missing
 
 @app.get("/api/status")
