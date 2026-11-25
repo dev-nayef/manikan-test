@@ -1,1 +1,0 @@
-@echo off\ncd /d %~dp0\npython -m pip install -r requirements-local.txt\npython -m uvicorn server:app --host 127.0.0.1 --port 8000\npause\n
