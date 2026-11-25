@@ -62,7 +62,7 @@
 <div class="modal" id="checkoutModal"><div class="modal-card"><button class="modal-close" data-close="checkoutModal">×</button><div class="checkout"><h2>إتمام الطلب</h2><p style="font-size:12px;color:#777">أدخل بيانات التوصيل لمراجعة طلبك.</p><form id="checkoutForm"><div class="fields"><label>الاسم الكامل<input name="name" required placeholder="اسمك الكامل"></label><label>رقم الهاتف<input name="phone" required type="tel" placeholder="05xxxxxxxx"></label><label>المحافظة<input name="city" required placeholder="مثال: غزة"></label><label>المنطقة / الحي<input name="area" required placeholder="المنطقة"></label><label class="wide">العنوان بالتفصيل<textarea name="address" rows="2" required placeholder="الشارع، أقرب معلم..."></textarea></label><label class="wide">ملاحظات (اختياري)<input name="notes" placeholder="أي تفاصيل إضافية"></label></div><div class="notice">إرسال الطلب لا يعني تأكيد توفر المنتج. سنتواصل معك لمراجعة المقاس واللون والسعر والتوفر وتفاصيل التوصيل قبل اعتماد الطلب. هذه النسخة لا تزال تجريبية ولا ترسل الطلبات إلى نظام خلفي.</div><button class="primary full" type="submit">إرسال طلب المراجعة</button></form></div></div></div>
 <div class="toast" id="toast"></div>
 <script>
-const products=[
+const defaultProducts=[
 {id:1,name:'تيشيرت قطني أساسي',cat:'تيشيرتات',price:49,old:59,tag:'وصل حديثاً',img:'photo-1521572163474-6864f9cf17ab',desc:'تيشيرت رجالي قطني بقصة مريحة وسهل التنسيق للإطلالات اليومية.',sizes:['S','M','L','XL','XXL'],colors:['#f3f0e8','#252525','#78858b']},
 {id:2,name:'جاكيت رجالي كاجوال',cat:'جاكيتات',price:159,old:199,tag:'عرض',img:'photo-1551028719-00167b16eac5',desc:'جاكيت رجالي عملي بتصميم كاجوال مناسب للأيام الباردة.',sizes:['M','L','XL','XXL'],colors:['#8b735d','#252525']},
 {id:3,name:'قميص رجالي كلاسيكي',cat:'قمصان',price:89,old:109,tag:'',img:'photo-1602810318383-e386cc2a3ccf',desc:'قميص رجالي أنيق مناسب للعمل والمناسبات اليومية.',sizes:['M','L','XL','XXL'],colors:['#e7e3da','#82909b']},
@@ -71,7 +71,10 @@ const products=[
 {id:6,name:'قميص كاجوال بأكمام طويلة',cat:'قمصان',price:99,old:119,tag:'',img:'photo-1598033129183-c4f50c736f10',desc:'قميص كاجوال رجالي لإطلالة مرتبة ومريحة.',sizes:['M','L','XL','XXL'],colors:['#e7ddcc','#343b36']},
 {id:7,name:'بنطال تشينو رجالي',cat:'بناطيل',price:105,old:125,tag:'',img:'photo-1624378439575-d8705ad7ae80',desc:'بنطال تشينو رجالي بقصة عملية تناسب الاستخدام اليومي.',sizes:['30','32','34','36','38'],colors:['#b9a58b','#343434']},
 {id:8,name:'حذاء رجالي كلاسيكي',cat:'أحذية',price:169,old:199,tag:'وصل حديثاً',img:'photo-1614252369475-53132409ebee',desc:'حذاء رجالي بتصميم كلاسيكي للإطلالات الرسمية.',sizes:['40','41','42','43','44'],colors:['#292522','#79543e']}
+]
 ];
+let products=JSON.parse(localStorage.getItem('libas-products')||'null')||defaultProducts;
+
 let activeCategory='الكل',cart=JSON.parse(localStorage.getItem('libas-cart')||'[]'),favorites=JSON.parse(localStorage.getItem('libas-favs')||'[]'),selectedSize='',selectedColor='';
 const money=n=>'₪'+n;
 const imageUrl=(id)=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=720&q=82';
