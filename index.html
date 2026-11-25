@@ -77,7 +77,7 @@ let products=JSON.parse(localStorage.getItem('libas-products')||'null')||default
 
 let activeCategory='الكل',cart=JSON.parse(localStorage.getItem('libas-cart')||'[]'),favorites=JSON.parse(localStorage.getItem('libas-favs')||'[]'),selectedSize='',selectedColor='';
 const money=n=>'₪'+n;
-const imageUrl=(id)=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=720&q=82';
+const imageUrl=(id)=>{const p=products.find(x=>x.img===id);return p?.imageUrl||'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=720&q=82';};
 function save(){localStorage.setItem('libas-cart',JSON.stringify(cart));localStorage.setItem('libas-favs',JSON.stringify(favorites));}
 function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2100);}
 function setCategory(cat){activeCategory=cat;document.querySelectorAll('[data-cat]').forEach(b=>b.classList.toggle('active',b.dataset.cat===cat));document.getElementById('productsTitle').textContent=cat==='الكل'?'وصل حديثاً':cat==='تخفيضات'?'عروض وتخفيضات': 'قسم '+cat;renderProducts();document.getElementById('shop').scrollIntoView({behavior:'smooth',block:'start'});}
