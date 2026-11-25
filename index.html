@@ -40,32 +40,24 @@
 <footer>تنسيقك · تجربة تنسيق ملابس لمتجر محلي</footer><div class="toast" id="toast" role="status"></div>
 <script>
 const labels={shirt:'البلوزات',pants:'البناطيل',shoes:'الأحذية'};
-const colors={shirt:['#f2eee6','#343b4c','#b8a18a'],pants:['#42658b','#202126','#9a9a92'],shoes:['#e9e9e5','#272727','#b7a58f']};
-function svgProduct(type,color,variant=0){
- let art='';
- if(type==='shirt') art='<path d="M95 85 L145 52 L180 76 L215 52 L265 85 L238 145 L218 133 L218 310 L142 310 L142 133 L122 145Z" fill="'+color+'" stroke="#ffffff55" stroke-width="4"/><path d="M145 54 Q180 95 215 54" fill="none" stroke="#777" stroke-width="7"/><path d="M180 93 V295" stroke="#77777755" stroke-width="3"/>';
- if(type==='pants') art='<path d="M112 55 L248 55 L236 150 L220 320 L177 320 L168 166 L158 320 L112 320 L124 150Z" fill="'+color+'" stroke="#ffffff55" stroke-width="4"/><path d="M112 85 H248 M180 58 V165" stroke="#ffffff55" stroke-width="4"/><path d="M132 91 L145 118 M228 91 L215 118" stroke="#ffffff55" stroke-width="3"/>';
- if(type==='shoes') art='<path d="M55 190 Q85 180 112 135 L145 112 Q164 157 203 170 L270 193 Q291 203 288 237 Q286 253 260 255 L65 255 Q35 250 42 220Z" fill="'+color+'" stroke="#ffffff66" stroke-width="4"/><path d="M45 224 Q155 239 286 222 L284 248 Q160 270 52 250Z" fill="#d9d9d9"/><path d="M142 157 L183 195 M160 150 L199 187 M179 157 L215 190" stroke="#888" stroke-width="5"/>';
- return '<svg xmlns="http://www.w3.org/2000/svg" width="340" height="360" viewBox="0 0 340 360"><ellipse cx="170" cy="320" rx="110" ry="13" fill="#fff" opacity=".08"/>'+art+'</svg>';
-}
-function svgUrl(type,color,variant){return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svgProduct(type,color,variant))}
+const photo=(id)=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=900&q=88';
 let products=[
-{id:'s1',name:'تيشيرت أبيض',category:'shirt',price:'',image:svgUrl('shirt','#eeeae2')},
-{id:'s2',name:'بلوزة كحلية',category:'shirt',price:'',image:svgUrl('shirt','#343b4c')},
-{id:'s3',name:'بلوزة بيج',category:'shirt',price:'',image:svgUrl('shirt','#b8a18a')},
-{id:'p1',name:'جينز أزرق',category:'pants',price:'',image:svgUrl('pants','#42658b')},
-{id:'p2',name:'بنطلون أسود',category:'pants',price:'',image:svgUrl('pants','#202126')},
-{id:'p3',name:'بنطلون رمادي',category:'pants',price:'',image:svgUrl('pants','#9a9a92')},
-{id:'h1',name:'حذاء أبيض',category:'shoes',price:'',image:svgUrl('shoes','#e9e9e5')},
-{id:'h2',name:'حذاء أسود',category:'shoes',price:'',image:svgUrl('shoes','#272727')},
-{id:'h3',name:'حذاء بيج',category:'shoes',price:'',image:svgUrl('shoes','#b7a58f')}
+{id:'s1',name:'تيشيرت أبيض قطني',category:'shirt',price:'',image:photo('photo-1521572163474-6864f9cf17ab')},
+{id:'s2',name:'تيشيرت أسود',category:'shirt',price:'',image:photo('photo-1503342217505-b0a15ec3261c')},
+{id:'s3',name:'قميص كاجوال',category:'shirt',price:'',image:photo('photo-1598033129183-c4f50c736f10')},
+{id:'p1',name:'جينز أزرق',category:'pants',price:'',image:photo('photo-1542272604-787c3835535d')},
+{id:'p2',name:'بنطلون أسود',category:'pants',price:'',image:photo('photo-1473966968600-fa801b869a1a')},
+{id:'p3',name:'بنطلون كاجوال',category:'pants',price:'',image:photo('photo-1548883354-94bcfe321cbb')},
+{id:'h1',name:'سنيكرز أبيض',category:'shoes',price:'',image:photo('photo-1608384177866-0bca0d225435')},
+{id:'h2',name:'سنيكرز رياضي',category:'shoes',price:'',image:photo('photo-1542291026-7eec264c27ff')},
+{id:'h3',name:'حذاء كاجوال',category:'shoes',price:'',image:photo('photo-1525966222134-fcfa99b8ae77')}
 ];
 try{const saved=JSON.parse(localStorage.getItem('tanseek-products')||'[]');products=products.concat(saved)}catch(e){}
 const selected={shirt:'s1',pants:'p1',shoes:'h1'};
 const canvas=document.getElementById('outfit'),ctx=canvas.getContext('2d');
 const catalog=document.getElementById('catalog');
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300)}
-function imgFor(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=src})}
+function imgFor(src){return new Promise((resolve,reject)=>{const im=new Image();im.crossOrigin='anonymous';im.onload=()=>resolve(im);im.onerror=reject;im.src=src})}
 function drawContain(im,x,y,w,h){const scale=Math.min(w/im.width,h/im.height);const dw=im.width*scale,dh=im.height*scale;ctx.drawImage(im,x+(w-dw)/2,y+(h-dh)/2,dw,dh)}
 async function render(){
  ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -86,7 +78,7 @@ function renderCatalog(){
   const grid=document.createElement('div');grid.className='products';
   products.filter(p=>p.category===type).forEach(p=>{
    const b=document.createElement('button');b.type='button';b.className='product'+(selected[type]===p.id?' selected':'');b.setAttribute('aria-pressed',selected[type]===p.id?'true':'false');
-   const im=document.createElement('img');im.src=p.image;im.alt=p.name;
+   const im=document.createElement('img');im.crossOrigin='anonymous';im.src=p.image;im.alt=p.name;
    const mark=document.createElement('span');mark.className='selected-mark';mark.textContent='✓';
    const name=document.createElement('b');name.textContent=p.name;
    const price=document.createElement('small');price.textContent=p.price||'متاح للاختيار';
