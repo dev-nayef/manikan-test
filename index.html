@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>تنسيقك | متجر الملابس</title>
+<style>
+:root{color-scheme:dark;--bg:#090909;--panel:#141414;--panel2:#1c1c1c;--line:#292929;--muted:#a1a1aa;--white:#f5f5f5;--accent:#d7ff64}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:Tahoma,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.topbar{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(5vw,20px);position:sticky;top:0;background:#090909ed;backdrop-filter:blur(12px);z-index:5}.brand{font-size:23px;font-weight:800;letter-spacing:-1px}.brand span{color:var(--accent)}.top-note{font-size:12px;color:var(--muted)}main{max-width:1250px;margin:auto;padding:36px 22px 70px}.intro{text-align:center;margin-bottom:30px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:2px}.intro h1{font-size:clamp(27px,4vw,43px);margin:12px 0}.intro p{color:var(--muted);margin:0;font-size:14px;line-height:1.8}.layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);gap:25px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.panel h2{font-size:18px;margin:0}.hint{font-size:11px;color:var(--muted)}.preview-wrap{background:#000;border:1px solid #303030;border-radius:15px;padding:12px;overflow:hidden}.preview-wrap canvas{width:100%;height:auto;display:block;aspect-ratio:4/5;object-fit:contain;background:#000}.preview-caption{display:flex;justify-content:space-between;color:#9b9b9b;font-size:11px;padding:12px 3px 0}.actions{display:flex;gap:10px;margin-top:15px}.btn{border:1px solid var(--line);border-radius:12px;padding:12px 16px;background:#242424;color:#fff;font-weight:700}.btn.primary{background:var(--accent);color:#111;border-color:var(--accent);flex:1}.btn:hover{filter:brightness(1.1)}.btn:disabled{opacity:.35;cursor:not-allowed}.selectors{display:grid;gap:18px}.category-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.category-head strong{font-size:14px}.category-head span{font-size:11px;color:var(--muted)}.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.product{background:var(--panel2);border:1px solid #303030;border-radius:13px;padding:8px;text-align:right;color:white;min-width:0;position:relative}.product.selected{border:1px solid var(--accent);box-shadow:0 0 0 1px #d7ff6430}.product img{width:100%;height:105px;object-fit:contain;background:#0a0a0a;border-radius:8px;display:block}.product b{display:block;font-size:12px;margin:8px 1px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.product small{font-size:10px;color:var(--muted)}.selected-mark{position:absolute;top:13px;left:13px;background:var(--accent);color:#111;width:20px;height:20px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:12px;font-weight:bold}.product.selected .selected-mark{display:flex}.admin{margin-top:22px;border-top:1px solid var(--line);padding-top:17px}.admin summary{cursor:pointer;font-size:13px;font-weight:bold}.admin-form{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.admin-form input,.admin-form select{min-width:0;background:#090909;color:#fff;border:1px solid #333;border-radius:9px;padding:10px;font-size:12px}.admin-form input[type=file]{grid-column:1/-1;width:100%}.admin-form button{grid-column:1/-1}.notice{font-size:11px;color:var(--muted);line-height:1.8;margin-top:10px}.empty{color:var(--muted);font-size:12px;text-align:center;padding:18px}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;background:#f4f4f4;color:#111;padding:12px 18px;border-radius:12px;font-size:13px;transition:.25s;z-index:9;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}footer{text-align:center;color:#777;font-size:11px;padding:24px;border-top:1px solid var(--line)}@media(max-width:850px){.layout{grid-template-columns:1fr}.preview-panel{order:-1}.products{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:430px){main{padding:25px 13px 45px}.panel{padding:14px}.products{gap:6px}.product{padding:6px}.product img{height:82px}.actions .btn{padding:11px 9px;font-size:12px}.top-note{display:none}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand">تنسيق<span>ك.</span></div><div class="top-note">نسّق طقمك بطريقتك · بدون صور شخصية</div></header>
+<main>
+<section class="intro"><div class="eyebrow">OUTFIT BUILDER</div><h1>كوّن إطلالتك بنفسك</h1><p>اختر القطع التي تعجبك وشاهدها معاً في صورة واحدة.<br>صور المنتجات الأصلية، وخلفية سوداء، دون أشخاص أو مانيكان.</p></section>
+<div class="layout">
+<section class="panel selectors">
+<div class="panel-head"><h2>اختر قطع الطقم</h2><span class="hint">اضغط على المنتج لاختياره</span></div>
+<div id="catalog"></div>
+<details class="admin">
+<summary>إدارة المنتجات · إضافة قطعة جديدة</summary>
+<form class="admin-form" id="addForm">
+<input id="productName" placeholder="اسم المنتج" required maxlength="45">
+<select id="productCategory"><option value="shirt">بلوزة</option><option value="pants">بنطلون</option><option value="shoes">حذاء</option></select>
+<input id="productPrice" type="text" placeholder="السعر (اختياري)">
+<input id="productImage" type="file" accept="image/*" required>
+<button class="btn" type="submit">إضافة المنتج</button>
+</form>
+<p class="notice">لأفضل نتيجة، استخدم صورة منتج بخلفية شفافة (PNG/WebP). الصور التي تضيفها تُحفظ محلياً في هذا المتصفح، ولا تُرفع إلى خادم.</p>
+</details>
+</section>
+<section class="panel preview-panel">
+<div class="panel-head"><h2>معاينة الطقم</h2><span class="hint">خلفية سوداء ثابتة</span></div>
+<div class="preview-wrap"><canvas id="outfit" width="900" height="1125" aria-label="معاينة الطقم النهائي"></canvas><div class="preview-caption"><span>OUTFIT PREVIEW</span><span>900 × 1125 PX</span></div></div>
+<div class="actions"><button class="btn" id="resetBtn" type="button">إعادة الاختيار</button><button class="btn primary" id="downloadBtn" type="button">تنزيل صورة الطقم PNG</button></div>
+<p class="notice">يتم ترتيب البلوزة أعلى البنطلون والحذاء أسفلهما. لا يستخدم الموقع الذكاء الاصطناعي ولا يغيّر صور المنتجات؛ بل يركّبها مباشرة.</p>
+</section>
+</div>
+</main>
+<footer>تنسيقك · تجربة تنسيق ملابس لمتجر محلي</footer><div class="toast" id="toast" role="status"></div>
+<script>
+const labels={shirt:'البلوزات',pants:'البناطيل',shoes:'الأحذية'};
+const colors={shirt:['#f2eee6','#343b4c','#b8a18a'],pants:['#42658b','#202126','#9a9a92'],shoes:['#e9e9e5','#272727','#b7a58f']};
+function svgProduct(type,color,variant=0){
+ let art='';
+ if(type==='shirt') art='<path d="M95 85 L145 52 L180 76 L215 52 L265 85 L238 145 L218 133 L218 310 L142 310 L142 133 L122 145Z" fill="'+color+'" stroke="#ffffff55" stroke-width="4"/><path d="M145 54 Q180 95 215 54" fill="none" stroke="#777" stroke-width="7"/><path d="M180 93 V295" stroke="#77777755" stroke-width="3"/>';
+ if(type==='pants') art='<path d="M112 55 L248 55 L236 150 L220 320 L177 320 L168 166 L158 320 L112 320 L124 150Z" fill="'+color+'" stroke="#ffffff55" stroke-width="4"/><path d="M112 85 H248 M180 58 V165" stroke="#ffffff55" stroke-width="4"/><path d="M132 91 L145 118 M228 91 L215 118" stroke="#ffffff55" stroke-width="3"/>';
+ if(type==='shoes') art='<path d="M55 190 Q85 180 112 135 L145 112 Q164 157 203 170 L270 193 Q291 203 288 237 Q286 253 260 255 L65 255 Q35 250 42 220Z" fill="'+color+'" stroke="#ffffff66" stroke-width="4"/><path d="M45 224 Q155 239 286 222 L284 248 Q160 270 52 250Z" fill="#d9d9d9"/><path d="M142 157 L183 195 M160 150 L199 187 M179 157 L215 190" stroke="#888" stroke-width="5"/>';
+ return '<svg xmlns="http://www.w3.org/2000/svg" width="340" height="360" viewBox="0 0 340 360"><ellipse cx="170" cy="320" rx="110" ry="13" fill="#fff" opacity=".08"/>'+art+'</svg>';
+}
+function svgUrl(type,color,variant){return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svgProduct(type,color,variant))}
+let products=[
+{id:'s1',name:'تيشيرت أبيض',category:'shirt',price:'',image:svgUrl('shirt','#eeeae2')},
+{id:'s2',name:'بلوزة كحلية',category:'shirt',price:'',image:svgUrl('shirt','#343b4c')},
+{id:'s3',name:'بلوزة بيج',category:'shirt',price:'',image:svgUrl('shirt','#b8a18a')},
+{id:'p1',name:'جينز أزرق',category:'pants',price:'',image:svgUrl('pants','#42658b')},
+{id:'p2',name:'بنطلون أسود',category:'pants',price:'',image:svgUrl('pants','#202126')},
+{id:'p3',name:'بنطلون رمادي',category:'pants',price:'',image:svgUrl('pants','#9a9a92')},
+{id:'h1',name:'حذاء أبيض',category:'shoes',price:'',image:svgUrl('shoes','#e9e9e5')},
+{id:'h2',name:'حذاء أسود',category:'shoes',price:'',image:svgUrl('shoes','#272727')},
+{id:'h3',name:'حذاء بيج',category:'shoes',price:'',image:svgUrl('shoes','#b7a58f')}
+];
+try{const saved=JSON.parse(localStorage.getItem('tanseek-products')||'[]');products=products.concat(saved)}catch(e){}
+const selected={shirt:'s1',pants:'p1',shoes:'h1'};
+const canvas=document.getElementById('outfit'),ctx=canvas.getContext('2d');
+const catalog=document.getElementById('catalog');
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300)}
+function imgFor(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=src})}
+function drawContain(im,x,y,w,h){const scale=Math.min(w/im.width,h/im.height);const dw=im.width*scale,dh=im.height*scale;ctx.drawImage(im,x+(w-dw)/2,y+(h-dh)/2,dw,dh)}
+async function render(){
+ ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);
+ // subtle studio glow without changing the pure black product background
+ const glow=ctx.createRadialGradient(450,520,80,450,520,590);glow.addColorStop(0,'#151515');glow.addColorStop(1,'#000');ctx.fillStyle=glow;ctx.fillRect(0,0,900,1125);
+ const placements={shirt:{x:235,y:65,w:430,h:340},pants:{x:270,y:370,w:360,h:470},shoes:{x:300,y:830,w:300,h:230}};
+ for(const type of ['shirt','pants','shoes']){
+  const product=products.find(p=>p.id===selected[type]);if(!product)continue;
+  try{const im=await imgFor(product.image);const p=placements[type];drawContain(im,p.x,p.y,p.w,p.h)}catch(e){}
+ }
+ ctx.fillStyle='#ffffff80';ctx.font='20px Arial';ctx.textAlign='center';ctx.fillText('YOUR OUTFIT',450,1080);
+}
+function renderCatalog(){
+ catalog.innerHTML='';
+ for(const type of ['shirt','pants','shoes']){
+  const group=document.createElement('section');group.className='category';
+  const head=document.createElement('div');head.className='category-head';head.innerHTML='<strong>'+labels[type]+'</strong><span>اختر قطعة واحدة</span>';group.appendChild(head);
+  const grid=document.createElement('div');grid.className='products';
+  products.filter(p=>p.category===type).forEach(p=>{
+   const b=document.createElement('button');b.type='button';b.className='product'+(selected[type]===p.id?' selected':'');b.setAttribute('aria-pressed',selected[type]===p.id?'true':'false');
+   const im=document.createElement('img');im.src=p.image;im.alt=p.name;
+   const mark=document.createElement('span');mark.className='selected-mark';mark.textContent='✓';
+   const name=document.createElement('b');name.textContent=p.name;
+   const price=document.createElement('small');price.textContent=p.price||'متاح للاختيار';
+   b.append(im,mark,name,price);b.addEventListener('click',()=>{selected[type]=p.id;renderCatalog();render()});grid.appendChild(b);
+  });
+  group.appendChild(grid);catalog.appendChild(group);
+ }
+}
+document.getElementById('addForm').addEventListener('submit',async e=>{
+ e.preventDefault();const file=document.getElementById('productImage').files[0];if(!file)return;
+ if(file.size>4*1024*1024){toast('حجم الصورة يجب ألا يتجاوز 4 ميغابايت');return}
+ const reader=new FileReader();reader.onload=()=>{const p={id:'custom-'+Date.now(),name:document.getElementById('productName').value.trim(),category:document.getElementById('productCategory').value,price:document.getElementById('productPrice').value.trim(),image:reader.result};products.push(p);try{localStorage.setItem('tanseek-products',JSON.stringify(products.filter(x=>x.id.startsWith('custom-'))))}catch(err){toast('مساحة التخزين ممتلئة؛ لم يتم حفظ المنتج');products.pop();return}selected[p.category]=p.id;renderCatalog();render();e.target.reset();toast('تمت إضافة المنتج')};reader.readAsDataURL(file);
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{selected.shirt='s1';selected.pants='p1';selected.shoes='h1';renderCatalog();render();toast('تمت إعادة الاختيارات')});
+document.getElementById('downloadBtn').addEventListener('click',()=>{const a=document.createElement('a');a.download='my-outfit.png';a.href=canvas.toDataURL('image/png');a.click();toast('تم تجهيز صورة الطقم للتنزيل')});
+renderCatalog();render();
+</script>
+</body></html>
