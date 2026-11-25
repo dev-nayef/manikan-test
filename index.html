@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACGPN | Virtual Try-On Lab</title>
+<style>
+:root{color-scheme:dark;--bg:#08090d;--panel:#11131b;--line:#252938;--muted:#9ba3b7;--accent:#a78bfa;--cyan:#67e8f9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0,#20183a 0,transparent 38%),var(--bg);color:#f5f5f7;font-family:Tahoma,Arial,sans-serif;min-height:100vh}
+main{max-width:1080px;margin:auto;padding:38px 22px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:32px}.brand{font-size:13px;letter-spacing:2px;color:var(--cyan)}h1{font-size:clamp(30px,5vw,48px);margin:10px 0}p{color:var(--muted);line-height:1.8}.pill{border:1px solid #3b3159;background:#1b1630;color:#c4b5fd;border-radius:30px;padding:8px 13px;font-size:12px}
+.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.panel{background:linear-gradient(145deg,#151722,#0e1017);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 18px 60px #0005}.panel h2{font-size:18px;margin:0 0 8px}.preview{margin-top:18px;min-height:290px;border:1px dashed #34394b;border-radius:14px;display:grid;place-items:center;background:#090a10;overflow:hidden}.preview img{max-width:100%;max-height:480px;display:block}.empty{text-align:center;padding:28px;color:#788198}.btn{border:0;border-radius:12px;padding:14px 18px;background:linear-gradient(100deg,#8b5cf6,#6366f1);color:white;font-weight:bold;font-size:15px;cursor:pointer;width:100%;margin-top:18px}.btn:disabled{opacity:.45;cursor:not-allowed}.secondary{background:#202433;border:1px solid #353b50}.status{margin-top:14px;border-radius:12px;padding:13px;background:#0a0c12;border:1px solid var(--line);color:#cbd5e1;white-space:pre-wrap;line-height:1.7;font-size:13px}.note{font-size:12px;color:#8f98ac;margin-top:14px}.result{margin-top:20px}.result img{width:100%;border-radius:12px;border:1px solid var(--line)}.steps{display:grid;gap:10px;margin-top:18px}.step{display:flex;gap:12px;align-items:flex-start;color:#c3c8d5;font-size:13px;line-height:1.7}.num{width:25px;height:25px;flex:0 0 25px;border-radius:50%;display:grid;place-items:center;background:#28213e;color:#c4b5fd}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+</style></head>
+<body><main>
+<div class="top"><div><div class="brand">ACGPN · LOCAL AI LAB</div><h1>تجربة تبديل الملابس</h1><p>واجهة محلية لتشغيل نموذج ACGPN وعرض نتائج الـ Virtual Try-On.</p></div><span class="pill">تعليمي / بحثي فقط</span></div>
+<div class="layout">
+<section class="panel"><h2>تشغيل النموذج</h2><p>هذه النسخة تشغّل اختبار ACGPN الأصلي على بيانات VITON التجريبية بعد تنزيل ملفات البيانات والأوزان. لا ترفع صورة شخصية عشوائية؛ النموذج الأصلي يحتاج ملفات تجهيز مسبقاً.</p>
+<div class="steps"><div class="step"><span class="num">1</span><span>نزّل مجلد <b>test</b> من Dataset_Test وضعه داخل مجلد ACGPN حسب بنية المشروع.</span></div><div class="step"><span class="num">2</span><span>نزّل checkpoints وفك ضغطها في المسار الذي يتوقعه test.py.</span></div><div class="step"><span class="num">3</span><span>شغّل الخادم المحلي ثم اضغط تشغيل التجربة.</span></div></div>
+<button id="run" class="btn">تشغيل تجربة ACGPN الفعلية</button><button id="check" class="btn secondary">فحص التجهيزات</button>
+<div id="status" class="status">لم يتم الاتصال بالخادم بعد. شغّل run.bat أولاً.</div>
+<div class="note">قد يستغرق الاستدلال وقتاً ويتطلب PyTorch وبيئة متوافقة مع CUDA/GPU وفق إعدادات المشروع.</div></section>
+<section class="panel"><h2>نتيجة التجربة</h2><p>ستظهر هنا صورة النتيجة التي ينتجها النموذج الأصلي.</p><div class="preview" id="preview"><div class="empty">بانتظار تشغيل النموذج<br><small>ACGPN output</small></div></div><div class="note">المستودع الأصلي مبني أساساً على VITON للملابس العلوية. وجود تصنيفات للبنطال والحذاء لا يعني أن النموذج مدرّب لتجربتهما.</div></section>
+</div></main>
+<script>
+const statusBox=document.getElementById('status'),run=document.getElementById('run');
+async function check(){statusBox.textContent='جارٍ فحص الخادم...';try{const r=await fetch('/api/status');const d=await r.json();statusBox.textContent=d.message+(d.ready?'\n\nالتجهيزات الأساسية موجودة.':'\n\nراجع النواقص أعلاه.')}catch(e){statusBox.textContent='تعذر الاتصال. تأكد من تشغيل run.bat ثم افتح http://127.0.0.1:8000';}}
+document.getElementById('check').onclick=check;
+run.onclick=async()=>{run.disabled=true;statusBox.textContent='بدأ تشغيل test.py. قد يستغرق ذلك عدة دقائق...';try{const r=await fetch('/api/run-demo',{method:'POST'});const d=await r.json();statusBox.textContent=d.message;if(d.image){document.getElementById('preview').innerHTML='<img alt="ACGPN result" src="'+d.image+'?t='+Date.now()+'">';}}catch(e){statusBox.textContent='حدث خطأ أثناء الاتصال: '+e.message;}finally{run.disabled=false;}};
+</script></body></html>
